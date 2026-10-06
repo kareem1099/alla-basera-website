@@ -23,6 +23,8 @@ Requires Node 18+ (tested with Node 22).
 2. Run `npm run data` (or just `npm run dev` / `npm run build`, which run it automatically).
 3. Done — no code changes.
 
+**Editing the chat's suggested questions:** they come from the `اسأل في الكتاب (أسئلة مقترحة)` column, one question per line (the first 3 are shown). The English versions are in `askTheBook` of the matching day in `data/translations/en/days_XX_YY.json`. Change both so the two languages stay in sync.
+
 `scripts/build-data.mjs` reads sheet «خطة الـ90 يوم» (falls back to the first sheet), maps the used columns, strips page citations from the quiz evidence/quote for display, derives units from `الوحدة رقم` / `اسم الوحدة`, validates everything, and writes `src/data/journey.generated.json`. If validation fails, the build stops with a message listing the bad day numbers. On success it prints:
 
 ```
@@ -37,104 +39,140 @@ Columns **not** used (never displayed): `الفصل`, `صفحة الكتاب`, `
 
 ---
 
-## Connecting your Azure RAG
+## Live site and pages
 
-The chat is isolated in `src/lib/ragClient.ts`. Until `VITE_RAG_ENDPOINT` is set, the chat shows «بانتظار الربط» and its input is disabled.
+The site is published on GitHub Pages: **https://kareem1099.github.io/alla-basera-website/**
 
-### Path 1 — Direct (backend needs no secret key)
+It is a single page with a tiny hash router (`src/App.tsx`):
 
-1. Copy `.env.example` to `.env` and set:
-   ```
-   VITE_RAG_ENDPOINT=https://YOUR-APP.azurewebsites.net/api/chat
-   ```
-2. Enable CORS on the Azure resource: **Azure Portal → your Function App / App Service → API → CORS** → add your site origin (e.g. `https://your-site.pages.dev`) and `http://localhost:5173` for development → **Save**.
-3. Rebuild (`npm run build`) or restart `npm run dev`. On your host, set the same variable in the host's environment settings before building.
-
-### Path 2 — With a key (recommended if the endpoint needs a key)
-
-Never put keys in the frontend. Use one of the tiny proxies in `deploy/`:
-
-| Host | Copy this | To project root as |
+| URL | Page | Chat |
 |---|---|---|
-| Cloudflare Pages | `deploy/cloudflare/functions/` | `functions/` |
-| Netlify | `deploy/netlify/functions/chat.ts` (+ redirect in its header comment) | `netlify/functions/chat.ts` |
-| Vercel | `deploy/vercel/api/` | `api/` |
-
-1. Set these **secret** environment variables on the host:
-   - `RAG_URL` = your Azure endpoint, e.g. `https://YOUR-APP.azurewebsites.net/api/chat`
-   - `RAG_AUTH_HEADER` = the header name your backend expects: `x-functions-key` (Azure Functions) or `api-key` (Azure OpenAI / AI Search)
-   - `RAG_AUTH_VALUE` = the key
-2. Set the frontend variable `VITE_RAG_ENDPOINT=/api/chat`.
-3. Redeploy. No CORS setup is needed (same origin).
-
-### Request / response contract
-
-Default request (`VITE_RAG_REQUEST_FORMAT=custom`):
-
-```json
-POST <VITE_RAG_ENDPOINT>
-{
-  "question": "يعني إيه توحيد الربوبية؟",
-  "history": [{ "role": "user", "content": "..." }, { "role": "assistant", "content": "..." }],
-  "context": { "day": 5, "title": "...", "unit": "...", "lesson": "...", "principle": "..." }
-}
-```
-
-With `VITE_RAG_REQUEST_FORMAT=azure-chat` the body is chat-completions style; the day context goes in a system message:
-
-```json
-{ "messages": [ { "role": "system", "content": "…day context…" }, …history, { "role": "user", "content": "question" } ] }
-```
-
-Accepted responses (any of these, normalized to `{ answer, sources? }`):
-
-1. `{ "answer": "...", "sources": [{ "label": "...", "type": "book" | "external" }] }` (sources may also be plain strings or objects with `title`/`name`/`filepath`)
-2. `{ "response" | "reply" | "message" | "output" | "result": "..." }`
-3. Azure OpenAI chat-completions: `{ "choices": [{ "message": { "content": "...", "context": { "citations": [{ "title": "...", "filepath": "..." }] } } }] }`
-4. A plain-text body (used as the answer).
-
-To adapt to another shape, edit only `buildRequestBody` / `normalizeResponse` in `src/lib/ragClient.ts`. Timeout: 60 s.
-
-### Test with curl
-
-```bash
-curl -X POST "$VITE_RAG_ENDPOINT" -H "Content-Type: application/json" \
-  -d '{"question":"ما معنى الإيمان؟","history":[],"context":{"day":3,"title":"","unit":"","lesson":"","principle":""}}'
-# through a proxy:
-curl -X POST https://your-site.pages.dev/api/chat -H "Content-Type: application/json" -d '{"question":"test","history":[],"context":{"day":1}}'
-```
-
-Local mock backend: `npm run mock-rag` (port 8787; `MOCK_SHAPE=azure` or `MOCK_SHAPE=fail` for other shapes), then `VITE_RAG_ENDPOINT=http://localhost:8787/chat npm run dev`.
-
-### Troubleshooting
-
-- **CORS error in the browser console** → add your exact site origin in Azure CORS (Path 1), or use a proxy (Path 2).
-- **401 / 403** → wrong key or wrong header name: Azure Functions use `x-functions-key`, Azure OpenAI uses `api-key`.
-- **Timeout** → the backend took >60 s; check Azure logs / cold start (Consumption plan).
-- **Empty answer / error bubble** → the response shape isn't one of the accepted ones; check it with curl and adjust `normalizeResponse`.
-- **Still «بانتظار الربط»** → `VITE_*` variables are baked in at build time; rebuild after changing them.
+| `#/` | Home (`src/pages/Home.tsx`) | — |
+| `#/journey` | The 90-day journey (`src/pages/Journey.tsx`): units bar, day card, quiz, action toggle | «رفيق الرحلة» panel next to the day, with up to 3 suggested questions from the day's `اسأل في الكتاب` cell |
+| `#/prophet` | «من هو أشرف الخلق؟» tree (`src/pages/TreePage.tsx`) | floating companion button |
+| `#/ten` | «العشرة المبشرون بالجنة» tree | floating companion button |
 
 ---
 
-## Free deployment
+## The chat backend (current setup)
 
-The build output `dist/` is a plain static site (single route, no rewrites needed).
+The chat talks to **MiniRAG**, a FastAPI service deployed on **Azure Container Apps** (repo: `kareem1099/rag-on-azure`, deployment guide in `mini-rag-app/infra/azure/README.md`).
 
-### Recommended: Cloudflare Pages (free, unlimited bandwidth)
+```
+browser (GitHub Pages) ── POST {text, limit} ──▶  minirag-api (Azure Container Apps)
+                                                     │  Gemini (with Cohere fallback) + PostgreSQL/pgvector
+```
 
-1. Push this folder to a GitHub repo.
-2. Go to **dash.cloudflare.com → Workers & Pages → Create → Pages → Connect to Git** and pick the repo.
-3. Framework preset: **None** (or Vite). **Build command:** `npm run build`. **Build output directory:** `dist`. If the site lives in a subfolder of the repo, set **Root directory** to it (e.g. `website`).
-4. **Environment variables:** add `VITE_RAG_ENDPOINT` (and, if using the proxy, `RAG_URL`, `RAG_AUTH_HEADER`, `RAG_AUTH_VALUE` as encrypted). Add `NODE_VERSION=22`.
-5. **Save and Deploy.** Your site is at `https://<project>.pages.dev`.
+### Endpoint and request format
 
-No Git? Run `npm run build` locally, then **Create → Pages → Upload assets** and drag the `dist` folder (the proxy option requires Git deploy or Wrangler).
+The frontend is configured by two build-time variables (see `.env.example`):
 
-### Alternatives
+```
+VITE_RAG_ENDPOINT=https://minirag-api.lemonsand-58ae2c57.swedencentral.azurecontainerapps.io/api/v1/nlp/index/answer/1
+VITE_RAG_REQUEST_FORMAT=minirag
+```
 
-- **Netlify** (free tier): New site → import repo → build `npm run build`, publish `dist`, env vars in Site settings.
-- **Vercel** (free hobby tier): Import project → framework Vite → build `npm run build`, output `dist`.
-- **Azure Static Web Apps** (Free plan): fits well since your backend is on Azure. Create Static Web App → GitHub → app location `/` (or `website`), output `dist`. You can link your Function App as the API.
+- With `minirag`, `src/lib/ragClient.ts` sends `POST { "text": "<question>", "limit": 5 }` and shows only `answer` from the response (`{ signal, answer, grounding, ... }`); the retrieved documents are not displayed.
+- The answer endpoint is **public** (no API key). Upload / process / push on the backend still require `X-API-Key`, which never goes in the frontend.
+- Request timeout in the browser: 60 s.
+
+### Books are separate projects
+
+The number at the end of the URL is the backend **project id**; each book is indexed in its own project:
+
+| Project | Book | Used by |
+|---|---|---|
+| `1` | «ما لا يسع المسلم جهله» | `#/journey` (and, today, the tree pages too — see note) |
+| `2` | «صفة الصفوة» لابن الجوزي | — |
+
+> **Note:** there is a single `VITE_RAG_ENDPOINT`, so the tree pages (`#/prophet`, `#/ten`), which are built from «صفة الصفوة», currently ask project `1`. Pointing them at project `2` needs a second endpoint variable and a small change in `ragClient.ts` / `TreePage.tsx`.
+
+### CORS
+
+The backend allows browser calls from `https://kareem1099.github.io` through its `CORS_ALLOWED_ORIGINS` setting (comma-separated, no trailing slash or path). Nothing is needed on the website side. If the site moves to another domain (or for local dev on `http://localhost:5173`), add that origin to `CORS_ALLOWED_ORIGINS` in the backend's `.env.app` and redeploy the backend.
+
+### Cold start
+
+The backend scales to zero when idle, so the first question after a quiet period can take ~10–30 s while it wakes up; later questions are fast.
+
+### Test the backend with curl
+
+```bash
+# health
+curl https://minirag-api.lemonsand-58ae2c57.swedencentral.azurecontainerapps.io/api/v1/healthy
+
+# ask project 1 (exactly what the site sends)
+curl -X POST "https://minirag-api.lemonsand-58ae2c57.swedencentral.azurecontainerapps.io/api/v1/nlp/index/answer/1" \
+  -H "Content-Type: application/json" -d '{"text":"ما معنى الإيمان؟","limit":5}'
+
+# check that CORS allows the site (expect 200 and access-control-allow-origin)
+curl -i -X OPTIONS "https://minirag-api.lemonsand-58ae2c57.swedencentral.azurecontainerapps.io/api/v1/nlp/index/answer/1" \
+  -H "Origin: https://kareem1099.github.io" -H "Access-Control-Request-Method: POST" -H "Access-Control-Request-Headers: content-type"
+```
+
+A reply of `{"signal":"rag_answer_error"}` means the backend is up but found nothing in that project (wrong project id, or the book was not indexed yet).
+
+### Troubleshooting the chat
+
+Open DevTools (**F12 → Console / Network**) and look at the request to `.../answer/1`.
+
+- **`blocked by CORS policy`** → the site's origin is missing from the backend's `CORS_ALLOWED_ORIGINS`.
+- **Request pending for a long time, then works** → cold start (see above).
+- **Timeout after 60 s** → backend slow or Gemini/Cohere retrying; check the backend logs (Log Analytics, see the backend README).
+- **`rag_answer_error`** → nothing indexed for that project id.
+- **Chat says «بانتظار الربط»** → `VITE_RAG_ENDPOINT` was empty at build time. `VITE_*` values are baked in when building; rebuild after changing them.
+
+---
+
+## Deployment (GitHub Pages)
+
+Deployment is automatic: `.github/workflows/deploy.yml` runs on every push to `main` (and can be started by hand).
+
+1. `npm ci`
+2. `npm run build` (regenerates the data from the Excel file, type-checks, builds `dist/`)
+3. uploads `dist/` and publishes it to GitHub Pages
+
+The chat settings for the published site are set **in the workflow**, not in `.env` (which is git-ignored):
+
+```yaml
+env:
+  VITE_RAG_ENDPOINT: https://minirag-api.lemonsand-58ae2c57.swedencentral.azurecontainerapps.io/api/v1/nlp/index/answer/1
+  VITE_RAG_REQUEST_FORMAT: minirag
+```
+
+Change them there if the backend URL or project changes, then push.
+
+**Update the site**
+
+```bash
+git pull origin main
+# edit data/90_day_journey.xlsx, translations, code ...
+npm run build          # optional local check
+git add -A && git commit -m "..."
+git push origin main   # triggers the deploy
+```
+
+Follow progress under **GitHub → Actions → Deploy to GitHub Pages**; when it is green, reload the site with **Ctrl+F5**.
+
+**Redeploy without a code change:** Actions → *Deploy to GitHub Pages* → **Run workflow**.
+
+**One-time setup** (already done for this repo): Settings → Pages → *Build and deployment* → Source: **GitHub Actions**.
+
+`vite.config.ts` uses `base: "./"`, so the build works under the `/alla-basera-website/` sub-path without extra config.
+
+---
+
+## Other backends and hosts (optional)
+
+The chat is isolated in `src/lib/ragClient.ts`, so another backend only needs different variables:
+
+- `VITE_RAG_REQUEST_FORMAT=custom` (default) sends `{ question, history, context: { day, title, unit, lesson, principle } }`.
+- `VITE_RAG_REQUEST_FORMAT=azure-chat` sends chat-completions style `{ messages: [...] }` with the day context as a system message.
+- Accepted responses: `{ answer, sources? }`, `{ response | reply | message | output | result }`, Azure OpenAI chat-completions, MiniRAG `{ answer, grounding }`, or plain text. To support another shape edit only `buildRequestBody` / `normalizeResponse`.
+- If a backend needs a secret key, never put it in the frontend: use one of the proxies in `deploy/` (Cloudflare Pages `functions/`, Netlify `netlify/functions/chat.ts`, Vercel `api/`) with host secrets `RAG_URL`, `RAG_AUTH_HEADER`, `RAG_AUTH_VALUE`, and set `VITE_RAG_ENDPOINT=/api/chat`.
+- The site is a plain static `dist/` folder, so Cloudflare Pages, Netlify, Vercel or Azure Static Web Apps also work (build `npm run build`, output `dist`, `NODE_VERSION=22`).
+
+Local mock backend: `npm run mock-rag` (port 8787; `MOCK_SHAPE=azure` or `MOCK_SHAPE=fail`), then `VITE_RAG_ENDPOINT=http://localhost:8787/chat npm run dev`.
 
 ---
 
@@ -146,16 +184,23 @@ No Git? Run `npm run build` locally, then **Create → Pages → Upload assets**
 ## Project structure
 
 ```
-data/90_day_journey.xlsx          content source (only source of truth)
-scripts/build-data.mjs            Excel → src/data/journey.generated.json (+ validation)
+data/90_day_journey.xlsx          journey content (only source of truth for the 90 days)
+data/translations/en/*.json       English content, one file per 10 days
+scripts/build-data.mjs            Excel + translations → src/data/journey.generated.json (+ validation)
+scripts/build-safwa.mjs           «صفة الصفوة» → src/data/safwa.generated.json (npm run safwa)
+scripts/safwa-tree.mjs            tree branches and English labels for the two trees
 scripts/mock-rag.mjs              local mock RAG backend
 scripts/check-all-days.mjs        end-to-end check of all 90 days
-src/App.tsx                       page: header, units bar, day card, chat
-src/components/                   Header, UnitsBar, DayCard, SectionCard, EvidenceCards, Quiz, ActionToggle, CompanionChat
-src/data/journey.ts               typed loader (no content)
-src/lib/ragClient.ts              RAG request/response mapping
+src/App.tsx                       hash router: home, journey, prophet, ten
+src/pages/                        Home, Journey, TreePage
+src/components/                   Header, UnitsBar, DayCard, SectionCard, EvidenceCards, Quiz, ActionToggle,
+                                  CompanionChat, CompanionLauncher, BookTree, LeafReader, Logo, Ornament
+src/data/journey.ts, safwa.ts     typed loaders (no content)
+src/lib/ragClient.ts              RAG request/response mapping (custom, azure-chat, minirag)
+src/lib/i18n.tsx                  Arabic / English strings and language toggle
 src/lib/arabic.ts                 Arabic numerals + day-count grammar
 src/index.css                     Tailwind v4 theme (colors, fonts, fade-up)
+.github/workflows/deploy.yml      build + publish to GitHub Pages
 deploy/                           optional serverless proxies (not part of the app build)
 ```
 
