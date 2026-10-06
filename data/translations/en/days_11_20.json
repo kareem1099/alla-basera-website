@@ -1,0 +1,316 @@
+{
+ "days": [
+  {
+   "day": 11,
+   "title": "The Sunnah: The Second Revelation",
+   "question": "Can we suffice with the Quran and leave the Sunnah?",
+   "principle": "We believe in the authority of the pure Sunnah: believing in it is a religious necessity without which the bond of Islam is not established, and it is far too great and exalted for anyone to dispute it.",
+   "misconception": {
+    "peopleSay": "The Quran is enough for us, and anything not in it we don't have to follow.",
+    "correct": "Acting on the Quran alone is impossible, because the Quran contains many general statements that cannot be acted on without referring to the Sunnah, such as how to pray, the prayer times and the zakah thresholds. The Prophet ﷺ said: «ألا إني أوتيت الكتاب ومثله معه»."
+   },
+   "action": "Think about the prayer you pray every day: its number of units and its times. Ask yourself where you learned them from, and share this thought with someone.",
+   "lesson": [
+    "For a Muslim the Sunnah is not an extra; it is a binding proof, and believing in it is a religious necessity. The whole Ummah agrees that the Prophet ﷺ was protected from lying in what he conveyed from his Lord, and Allah said that he does not speak from desire. The Companions followed him in all his words and deeds, and Allah approved of that. The Prophet ﷺ said that he was given the Quran and something like it along with it, and he warned against a man reclining on his couch saying, \"Take the Quran only.\" Without the Sunnah we would not know how to pray, when, or how many units, nor would we know the zakah thresholds and amounts. Obeying the Prophet ﷺ is obeying Allah, and disobeying him is disobeying Allah."
+   ],
+   "quote": "He ﷺ, who is protected from lying, informed us that he was given the Quran and something like it along with it, and that whatever rulings he explained and legislated are from Allah the Exalted.",
+   "quiz": [
+    {
+     "question": "Someone says: \"I'll suffice with the Quran and don't need the Sunnah.\" Can he pray correctly that way?",
+     "options": ["Yes, all the details of prayer are in the Quran", "Yes, he can pray however suits him", "Prayer doesn't need details", "No, how to pray and the prayer times are detailed in the Sunnah"],
+     "explanation": "The Quran contains many general statements that cannot be acted on without referring to the Sunnah."
+    },
+    {
+     "question": "If the Prophet ﷺ forbade something in the Sunnah that is not explicitly mentioned in the Quran, what is its ruling?",
+     "options": ["Lawful because it is not in the Quran", "Only disliked", "Unlawful, because what the Messenger forbade is like what Allah forbade", "Left to each person's choice"]
+    },
+    {
+     "question": "Why do we trust that what the Prophet ﷺ conveyed of the religion is true?",
+     "options": ["Because he was the most educated person", "Because the Ummah agrees he was protected from lying in conveying the message", "Only because people believed him", "We don't have to trust all of his words"],
+     "explanation": "The entire Ummah agrees that he ﷺ was protected from lying in what he conveyed of the message."
+    }
+   ],
+   "askTheBook": ["What does the authority of the Sunnah mean?", "What is the evidence that we must act on the Sunnah?", "How could we know how to pray without the Sunnah?"]
+  },
+  {
+   "day": 12,
+   "title": "Your First Role Model",
+   "question": "If the words of a great scholar contradict an authentic hadith, which one do I follow?",
+   "principle": "We believe that the excellent example for this Ummah is the Messenger of Allah ﷺ, that his Sunnah rules over everything else, and that when it is authentic and unopposed it is not permissible to reject it for anyone's opinion.",
+   "misconception": {
+    "peopleSay": "The words of the great imams are infallible and may never be left, even if they contradict an authentic hadith.",
+    "correct": "The imams of fiqh did not write their fiqh to be a revelation after Muhammad ﷺ, nor did they claim infallibility for their reasoning, nor did they hold on to an opinion once they knew it contradicted his Sunnah. Malik said: \"Everyone's words may be taken or left, except the Messenger of Allah ﷺ.\""
+   },
+   "action": "Choose one of the imams' sayings in the book (such as \"If the hadith is authentic, it is my school\") and memorise it, and think about how it teaches you proper conduct toward the Sunnah.",
+   "lesson": [
+    "The Prophet ﷺ is the excellent example for the Ummah; his Sunnah rules over any other words, and if it is authentic and unopposed we may not reject it for anyone's opinion. Allah made following the Prophet ﷺ a sign of loving Allah, and warned those who go against his command of trial and punishment. Beautifully, the great imams themselves understood this well and did not claim their reasoning was infallible. Abu Hanifah said his words were an opinion, and if someone brought something better, it was closer to what is right. Malik said everyone's words may be taken or left except the Messenger of Allah ﷺ, and al-Shafi'i said, \"If the hadith is authentic, it is my school.\" Ahmad told a man: do not blindly follow me; take rulings from where they took them: the Quran and Sunnah."
+   ],
+   "quote": "What earth would carry me and what sky would shade me if I narrated something from the Messenger of Allah ﷺ and did not say: Yes, on my head and my eyes!!",
+   "quiz": [
+    {
+     "question": "You found an authentic hadith that contradicts the opinion of your school's imam. What do you do?",
+     "options": ["Follow the hadith, because the Sunnah rules over every opinion", "Follow the imam because he knows more", "Leave both", "Choose whichever is easier"],
+     "explanation": "If the hadith is authentic, it is my school."
+    },
+    {
+     "question": "Is there anyone whose words are all to be accepted without rejecting any of them?",
+     "options": ["The four imams", "Any great scholar", "The sheikh I trust", "No one except the Prophet ﷺ"],
+     "explanation": "Malik, may Allah have mercy on him, said: Everyone's words may be taken or left, except the Messenger of Allah ﷺ."
+    },
+    {
+     "question": "Someone says he loves Allah but is not interested in following the Prophet ﷺ. Is that consistent?",
+     "options": ["Yes, love is in the heart and needs no following", "Yes, the two are unrelated", "No, following the Prophet ﷺ is the proof of loving Allah", "Following is only for scholars"],
+     "explanation": "And He made following the Prophet ﷺ a sign of love for Allah, Mighty and Majestic."
+    }
+   ],
+   "askTheBook": ["What does it mean that the Prophet ﷺ is the excellent example?", "What did the four imams say about following the Sunnah?", "What do I do if a scholar's opinion contradicts an authentic hadith?"]
+  },
+  {
+   "day": 13,
+   "title": "Obey Whom, and How Far?",
+   "question": "If someone I must obey, like my father or my manager, asks me to do something sinful, what should I do?",
+   "principle": "Willingly seeking judgement from other than what Allah revealed is hypocrisy that cannot coexist with the foundation of faith. Absolute obedience belongs to no one after Allah and His Messenger, and obeying anyone else is conditional on it not being disobedience to Allah.",
+   "misconception": {
+    "peopleSay": "I have to obey my father and mother in anything they ask, even if it is a sin.",
+    "correct": "Obeying parents does not extend to disobeying Allah, nor to the shirk they may make attractive. Allah the Exalted said: «وإن جاهداك على أن تشرك بي ما ليس لك به علم فلا تطعهما وصاحبهما في الدنيا معروفاً» (Luqman 15)."
+   },
+   "action": "If someone asks you to do something sinful, remember the hadith \"لا طاعة في معصية الله\" (no obedience in disobedience to Allah), and think about how to refuse politely while still treating them kindly, as the verse says about parents.",
+   "lesson": [
+    "One consequence of there being a single source of guidance is that willingly seeking judgement from other than what Allah revealed is hypocrisy that cannot coexist with the foundation of faith. Absolute obedience belongs to no one after Allah and His Messenger. Anyone else, whether a ruler, scholar, husband, parent or employer, is obeyed on condition that it is not in sin. In the verse of Surat an-Nisa', Allah repeated the word \"obey\" with the Messenger but not with those in authority, because obeying them follows from obeying Allah and His Messenger. Even parents: if they pressure their child to associate partners with Allah, he does not obey them, but keeps accompanying them in this world with kindness. We follow scholars because they are a means of knowing Allah's ruling, not because their words are infallible. Consultation (shura) belongs in permissible matters and questions open to reasoning, and no interest that contradicts the Shariah is given any weight."
+   ],
+   "quote": "He repeated the word \"obey\" with the Messenger to show that he is owed obedience in his own right, and did not repeat it with those in authority to show that they are not obeyed independently.",
+   "quiz": [
+    {
+     "question": "Your manager at work asked you to do something haram. Do you obey him?",
+     "options": ["Yes, obeying the manager is obligatory in everything", "No, obeying anyone other than Allah and His Messenger is conditional on it not being sinful", "Yes, and the sin is on him", "Yes, if he will harm you"],
+     "explanation": "Rather, obeying them follows from obeying Allah and His Messenger."
+    },
+    {
+     "question": "Why do we ask scholars and follow them?",
+     "options": ["Because they are a means of knowing Allah's ruling, not because their words are law in themselves", "Because their words are the Shariah itself", "Because they are infallible", "Because their opinion matters more than the text"],
+     "explanation": "Following the people of knowledge is valid only insofar as they are means of knowing Allah's ruling."
+    },
+    {
+     "question": "Can people hold a vote or consultation on something Allah has forbidden by a clear text?",
+     "options": ["Yes, the majority decides anything", "Yes, if circumstances have changed", "Yes, if the scholars agree", "No, consultation is only for permissible matters and questions open to reasoning"],
+     "explanation": "Consultation is only within the sphere of what is left open, permissible matters and questions of reasoning."
+    }
+   ],
+   "askTheBook": ["To whom is absolute obedience due?", "Do I obey my parents if they ask me to sin?", "Why was the word \"obey\" repeated with the Messenger but not with those in authority?"]
+  },
+  {
+   "day": 14,
+   "title": "The Understanding of the Salaf, and Whom to Love and Support",
+   "question": "How do I understand the texts of the Quran and Sunnah correctly? And whom should I love and support?",
+   "principle": "Our righteous predecessors (the Salaf) are the reference in transmitting the texts of revelation and in understanding their clear-cut and definitive parts, and the basis of loyalty and disavowal is Islam and nothing else.",
+   "misconception": {
+    "peopleSay": "Loyalty and belonging are to one's country, nationality or party.",
+    "correct": "The basis of loyalty and disavowal is Islam and nothing else; whoever believes in Allah and His Messenger must be shown loyalty wherever he is."
+   },
+   "action": "Read verse 55 of Surat al-Ma'idah and think: to whom does the verse restrict loyalty? Write a line on how this affects whom you love and support.",
+   "lesson": [
+    "The Companions and the righteous predecessors are the ones who transmitted the Quran and Sunnah to us, and they are also the reference for understanding their clear-cut and definitive parts. What they agreed on is the truth, and we may not understand the texts apart from it. The Prophet ﷺ commanded us to hold fast to his Sunnah and the Sunnah of the rightly guided caliphs and bite onto it with our molar teeth. Then the book speaks about loyalty and disavowal (al-wala' wal-bara'), saying their basis is Islam alone. A believer is owed loyalty wherever he is, and someone who has faith along with sins is given loyalty according to his faith and disavowal according to his wrongdoing. Loyalty means love and support, and Allah restricted our loyalty to Himself, His Messenger ﷺ and the believers."
+   ],
+   "quote": "Loyalty (muwalah) is used for meanings that come back to love and support.",
+   "quiz": [
+    {
+     "question": "Someone came up with a new understanding of a definitive verse that contradicts how the Companions and their followers understood it. Do we take his understanding?",
+     "options": ["Yes, every new understanding is better", "Yes, if he is educated", "No, the Salaf are the reference in understanding the clear-cut and definitive texts", "Both are of equal value"],
+     "explanation": "They are also the reference in understanding the clear-cut and definitive parts of these texts."
+    },
+    {
+     "question": "What is the basis on which a Muslim loves and supports others (loyalty)?",
+     "options": ["Country and nationality", "Islam, so a believer is shown loyalty wherever he is", "Tribe and family", "Shared interests"],
+     "explanation": "Loyalty (muwalah) is used for meanings that come back to love and support."
+    },
+    {
+     "question": "A Muslim has faith but commits sins. How do we treat him?",
+     "options": ["We love him according to his faith and disavow his wrongdoing to its extent", "We love him fully as if there were no sins", "We disavow him completely", "We consider him not a Muslim"],
+     "explanation": "Whoever has both faith and wrongdoing is given loyalty according to his faith and disavowal according to his wrongdoing."
+    }
+   ],
+   "askTheBook": ["Why is the understanding of the righteous predecessors a proof?", "What do loyalty and disavowal mean?", "How do we apply loyalty to a sinful Muslim?"]
+  },
+  {
+   "day": 15,
+   "title": "There Is Nothing Like Him",
+   "question": "When Allah describes Himself as All-Hearing and All-Seeing, does that mean His hearing is like ours?",
+   "principle": "We believe in all the names and attributes of Allah that came in the Quran and the authentic Sunnah, without likening them to creation and without denying them; just as we affirm a Self without asking how, we affirm an attribute without asking how.",
+   "misconception": {
+    "peopleSay": "The subject of Allah's names and attributes is a source of confusion; it's better not to talk about it at all.",
+    "correct": "This is clear harshness, for Surat al-Ikhlas equals a third of the Quran and speaks only of Allah's names and attributes, and Ayat al-Kursi, the greatest verse in the Quran, contains nothing but an introduction to Allah and talk of His names and attributes."
+   },
+   "action": "Read Surat al-Ikhlas and Ayat al-Kursi today with reflection, take two of Allah's names or attributes from them, and call on Him by them.",
+   "lesson": [
+    "A Muslim believes in all of Allah's names and attributes that came in the Quran and the authentic Sunnah, without likening them to the attributes of creatures and without denying them. The verse ﴿لَيْسَ كَمِثْلِهِۦ شَىْءٌۖ وَهُوَ ٱلسَّمِيعُ ٱلْبَصِيرُ﴾ combines both: its beginning denies likeness and its end affirms the attribute. When Imam Malik was asked about Allah's rising over the Throne, he said it is known, its \"how\" is unknown, and believing in it is obligatory. The book explains that sharing a name does not mean being alike: a fly has a body and strength, and an elephant has a body and strength, yet the difference between them is huge. If that is so between creatures, the difference between the Creator and the created is even greater and clearer. People take two extremes and a middle on this: some went to excess and confused ordinary people with details, some neglected it and said do not talk about it, and the people of balance taught people the established fundamentals and left the details to scholars."
+   ],
+   "quote": "A fly has a body and strength, and an elephant has a body and strength, and how vast is the difference between the two bodies and the two strengths!",
+   "quiz": [
+    {
+     "question": "Allah described Himself as All-Hearing and All-Seeing. How do we understand that?",
+     "options": ["His hearing is exactly like ours", "We deny the attribute so as not to liken Him", "We reinterpret it to a completely different meaning", "We affirm the attribute for Allah without likening Him to creation and without denying it"],
+     "explanation": "So He denied likeness and resemblance with His words…"
+    },
+    {
+     "question": "Someone says: \"If we affirm an attribute like strength for Allah, we have likened Him to creation.\" What is the reply?",
+     "options": ["He is right, we must deny the attributes", "These attributes are only metaphorical", "Sharing a name does not mean being alike, just as an elephant's strength is not a fly's", "Every attribute involves likening"],
+     "explanation": "A fly has a body and strength, and an elephant has a body and strength, and how vast is the difference between the two bodies and the two strengths!"
+    },
+    {
+     "question": "Someone says: \"Talking about Allah's names and attributes isn't important.\" Is that right?",
+     "options": ["Right, only rulings matter", "Wrong, Surat al-Ikhlas equals a third of the Quran and is entirely about Allah's names and attributes", "Right, that's a topic for scholars only", "Right, attributes are a historical subject"],
+     "explanation": "Surat al-Ikhlas equals a third of the Quran and speaks only of Allah's names and attributes."
+    }
+   ],
+   "askTheBook": ["What does affirmation without likeness and transcendence without denial mean?", "What did Imam Malik say about Allah's rising over the Throne?", "What is the position of the people of balance on the names and attributes?"]
+  },
+  {
+   "day": 16,
+   "title": "Shirk: Major and Minor",
+   "question": "Can showing off or swearing by other than Allah be shirk?",
+   "principle": "Shirk is of two kinds: major shirk, which is the greatest injustice, which Allah does not forgive except for one who repents, and which nullifies all deeds; and minor shirk, which is one of the major sins and nullifies the deeds it enters.",
+   "misconception": {
+    "peopleSay": "Anyone who eats carrion has fallen into shirk.",
+    "correct": "Merely eating carrion is not shirk; what is shirk is regarding carrion as lawful under the influence of the doubts of those who argued against its prohibition, as in the occasion of revelation of al-An'am 121."
+   },
+   "action": "Before any good deed today (prayer, charity or helping someone), pause for a second and renew your intention that it is for Allah alone, and remember the hadith \"أنا أغنى الشركاء عن الشرك\".",
+   "lesson": [
+    "The book divides shirk into two kinds. Major shirk is the greatest injustice and the biggest sin; Allah does not forgive it except for one who repents, and it nullifies all deeds. It can be in worship, such as calling on or seeking rescue from other than Allah, or in obedience, such as claiming the absolute right to legislate instead of Allah. Minor shirk includes showing off, swearing by other than Allah in some of its forms and hanging amulets; it is one of the major sins and nullifies the deed it enters. When the Companions feared the verse of al-An'am and said, \"Which of us has not wronged himself?\", the Prophet ﷺ reassured them that the wrongdoing meant is shirk. The book explains that swearing by other than Allah is minor shirk when the person does not intend to honour what he swears by as he honours Allah."
+   ],
+   "quote": "It is known that merely eating carrion is not shirk; rather, regarding carrion as lawful under the influence of this doubt is shirk.",
+   "quiz": [
+    {
+     "question": "Someone does good so that people will praise him. What kind of thing is this?",
+     "options": ["Showing off (riya'), which is a form of minor shirk", "Normal, it has no ruling", "Major shirk that takes one out of Islam", "Something recommended"],
+     "explanation": "Among it are showing off and swearing by other than Allah in some of its forms."
+    },
+    {
+     "question": "What is the difference between major and minor shirk in their effect on deeds?",
+     "options": ["Neither affects deeds", "Minor shirk nullifies all deeds", "Major shirk nullifies only one deed", "Major shirk nullifies all deeds, and minor shirk nullifies the deed it enters"],
+     "explanation": "It is counted among the major sins, and it nullifies the deeds it enters."
+    },
+    {
+     "question": "One person ate carrion knowing it is haram; another was convinced by a doubt that it is halal and regarded it as lawful. Which of them fell into shirk?",
+     "options": ["Both fell into shirk", "Only the one who ate it", "The one who regarded it as lawful by following the doubt, not merely the one who ate it", "Neither of them"],
+     "explanation": "It is known that merely eating carrion is not shirk; rather, regarding carrion as lawful under the influence of this doubt is shirk."
+    }
+   ],
+   "askTheBook": ["What is the difference between major and minor shirk?", "What is showing off and why is it considered shirk?", "When is swearing by other than Allah shirk?"]
+  },
+  {
+   "day": 17,
+   "title": "The Angels: Honoured Servants",
+   "question": "What do we know about the angels, and which of them is responsible for what?",
+   "principle": "We believe in the angels of Allah, Mighty and Majestic: they are honoured servants whom Allah created from light and employed in His obedience; they do not disobey Allah in what He commands them and they do what they are commanded.",
+   "misconception": {
+    "peopleSay": "One can love one angel and hate another, as some people said: Jibril is our enemy and Mika'il is our ally.",
+    "correct": "A Muslim must be loyal to all of Allah's angels with love and reverence, making no distinction between any of them; whoever is an enemy of Allah or of any angel is an enemy of all the angels."
+   },
+   "action": "Remember the verse ﴿مَا يَلْفِظُ مِن قَوْلٍ إِلَّا لَدَيْهِ رَقِيبٌ عَتِيدٌ﴾ (Qaf 18) before you speak today, and watch your words.",
+   "lesson": [
+    "Belief in the angels is one of the pillars of faith. They are honoured servants whom Allah created from light, and they never disobey Allah in any command. Allah described them as having wings, two, three and four, and He adds to creation what He wills. Among them are Jibril, entrusted with revelation; Mika'il, entrusted with rain; Israfil, entrusted with the Trumpet; the Angel of Death and his helpers; and the noble scribes who record our deeds. A Muslim loves and reveres all the angels without distinguishing between them, unlike the Jews who claimed that Jibril was their enemy. A Muslim also stays away from things that harm them, such as foul smells. The Prophet ﷺ said that the angels do not enter a house in which there is a dog or an image, and that they are harmed by what harms the children of Adam."
+   ],
+   "quote": "A Muslim must be loyal to all of Allah's angels with love and reverence, making no distinction between any of them.",
+   "quiz": [
+    {
+     "question": "Someone says: \"I love Jibril but I don't care about the other angels.\" What is the correct understanding?",
+     "options": ["It's fine to love one and ignore the rest", "A Muslim is loyal to all the angels with love and reverence, without distinction", "We are not required to love the angels", "We love only the famous angels"],
+     "explanation": "A Muslim must be loyal to all of Allah's angels with love and reverence, making no distinction between any of them."
+    },
+    {
+     "question": "What are the angels created from?",
+     "options": ["Light", "Fire", "Clay", "Water"]
+    },
+    {
+     "question": "Someone says: \"The angels have nothing to do with how I behave.\" What etiquette should he observe?",
+     "options": ["No etiquette is required", "The angels are not affected by anything", "That's only required in the mosque", "The angels are harmed by what harms the children of Adam, so he should avoid that"]
+    }
+   ],
+   "askTheBook": ["What were the angels created from?", "What tasks of the angels does the book mention?", "What things harm the angels?"]
+  },
+  {
+   "day": 18,
+   "title": "The Revealed Books and the Supreme Quran",
+   "question": "As Muslims, do we believe in the Torah and the Gospel? And if so, why don't we act on them?",
+   "principle": "We believe in all the books Allah revealed to His messengers, in general and as matters of the unseen, and specifically in those Allah named; that they agreed in calling to tawhid; and that the Quran has abrogated them all after human hands reached them with distortion.",
+   "action": "If you hear something reported from the earlier scriptures, ask yourself: did the Quran confirm it, reject it, or stay silent about it? Treat it on that basis.",
+   "lesson": [
+    "A Muslim believes in all the books Allah revealed to His messengers, and specifically those Allah named in the Quran: the Torah, the Gospel, the Psalms and the scriptures of Ibrahim and Musa. These books are originally from Allah, and they all agreed in calling to tawhid, even if they differed in some details of their laws. But the book explains that the Quran abrogated them all after humans laid their hands on them with distortion. What they contain of reports and laws falls into three categories: what the Quran testified to be true, which we believe; what it testified to be false, which we reject; and what it was silent about, about which we stay silent. So we weigh anything attributed to these books on the scale of the Quran."
+   ],
+   "quote": "Allah also made clear that the Quran is supreme over the books before it: it is a trustee, a witness and a judge over them; what agrees with it is true and what contradicts it is false.",
+   "quiz": [
+    {
+     "question": "You found something in today's Torah or Gospel that contradicts the Quran. What do you do?",
+     "options": ["Believe it because it is a revealed book", "Get confused and leave both", "Consider it false, because the Quran is supreme and a judge over what came before it", "Consider it more correct than the Quran"],
+     "explanation": "It is a trustee, a witness and a judge over them."
+    },
+    {
+     "question": "And if you found something in them that the Quran is silent about?",
+     "options": ["Believe all of it", "Stay silent about it, neither believing nor denying it", "Deny all of it", "Act on it in rulings"],
+     "explanation": "And a category the Quran is silent about, so we are silent about it, so that we neither deny a truth nor affirm a falsehood."
+    },
+    {
+     "question": "What does belief in the revealed books mean?",
+     "options": ["We believe in all the books Allah revealed, and specifically those the Quran names", "We believe in the Quran only and deny the rest", "We believe in the copies that exist today as they are", "We believe only in the books of the famous prophets"],
+     "explanation": "And we believe specifically in those of them Allah named in the Quran: the Torah, the Gospel, the Psalms and the scriptures of Ibrahim and Musa."
+    }
+   ],
+   "askTheBook": ["Which revealed books must we believe in?", "What does it mean that the Quran abrogated the earlier books?", "How do we deal with reports in the earlier scriptures?"]
+  },
+  {
+   "day": 19,
+   "title": "How Do You Live by the Quran?",
+   "question": "Does believing in the Quran just mean believing that it is Allah's speech?",
+   "principle": "Belief in the Book requires treating its lawful as lawful and its unlawful as unlawful, taking lessons from its stories and parables, acting on its clear verses and submitting to its ambiguous ones, stopping at its limits, and reciting it as it deserves to be recited.",
+   "action": "Read one page of the Quran today with reflection, and take one thing from it (a command, a prohibition or a lesson) that you will try to act on.",
+   "lesson": [
+    "The book begins with a beautiful hadith: the Prophet ﷺ said that this Ummah came at the end of time and its work is less, yet Allah gave it double the reward, and that is His bounty which He gives to whom He wills. Believing in the Quran is not merely affirming it; it means treating its lawful as lawful and its unlawful as unlawful, taking lessons from its stories, acting on its clear verses and submitting to its ambiguous ones. Reciting it as it deserves means reading it as Allah revealed it, without twisting its words from their places or interpreting it wrongly. When those firmly grounded in knowledge meet the ambiguous, they say: we believe in it, all of it is from our Lord. Believing in the Quran also includes accepting the commands and prohibitions of the Prophet ﷺ. The Prophet ﷺ taught us a comforting rule: what he forbade we avoid, and what he commanded we do as much of as we are able."
+   ],
+   "quote": "Reciting it as it deserves means treating its lawful as lawful and its unlawful as unlawful, reading it as Allah revealed it, and not twisting the words from their places.",
+   "quiz": [
+    {
+     "question": "Someone reads the Quran a lot but does not keep to its halal and haram. Has he recited it as it deserves?",
+     "options": ["Yes, reading is what matters", "Yes, if he reads it with tajweed", "Yes, if he completes it often", "No, reciting it as it deserves means treating its halal as halal and its haram as haram"],
+     "explanation": "Reciting it as it deserves means treating its lawful as lawful and its unlawful as unlawful, reading it as Allah revealed it, and not twisting the words from their places."
+    },
+    {
+     "question": "You read a verse whose meaning you don't understand (an ambiguous verse). What is the right position?",
+     "options": ["Interpret it by your own opinion", "Reject it", "Submit to it and say: we believe in it, all of it is from our Lord", "Doubt the whole Quran"]
+    },
+    {
+     "question": "Allah commanded something and you cannot do all of it. What do you do?",
+     "options": ["Leave it completely", "Do as much of it as you are able", "You must do it completely or you sin", "Wait until you can do all of it"]
+    }
+   ],
+   "askTheBook": ["What does belief in the Quran require?", "What does it mean to recite the Quran as it deserves?", "How do we deal with the ambiguous verses?"]
+  },
+  {
+   "day": 20,
+   "title": "Messengers in Every Nation",
+   "question": "Did Allah send messengers to all people? And what is the difference between a prophet and a messenger?",
+   "principle": "We believe in all of Allah's prophets and messengers, those we know and those we do not, and specifically in those Allah named in the Quran; the reality of believing in them is firm conviction in their prophethood, their message and Allah's protection of them.",
+   "action": "Write down the names of the messengers mentioned in the verses of today's lesson (such as Nuh, Ibrahim, Hud, Salih and Shu'ayb), and try to recall from the verses the nation each was sent to.",
+   "lesson": [
+    "A Muslim believes in all of Allah's prophets and messengers, those we know and those we do not, and specifically those Allah named in the Quran. The book says the closest view on the difference between them is that a messenger is one who received a new law by revelation, while a prophet is one sent to confirm the law of those before him. Allah did not leave any nation without a warner; ever since shirk appeared among the children of Adam, messengers came calling to the worship of Allah alone, until He sealed them with Muhammad ﷺ. Some messengers' stories Allah told the Prophet ﷺ and some He did not. The reality of believing in them is to firmly believe in their prophethood and protection, and that they conveyed everything revealed to them and sincerely advised their nations. Allah chose His messengers from among His creation and described them as strong in His obedience and insightful in the truth."
+   ],
+   "quote": "He knows best where to place His message and whom to choose for it from His creation, and He chooses for it only the elect and the best.",
+   "quiz": [
+    {
+     "question": "Can we say that the messengers are only those named in the Quran?",
+     "options": ["No, there are messengers Allah told us about and others He did not, and we believe in all of them", "Yes, there are no other messengers", "Yes, and the rest are doubtful", "We believe only in the famous ones"],
+     "explanation": "Allah informed us that among the messengers are some whose stories He related to His Messenger ﷺ and some whose stories He did not."
+    },
+    {
+     "question": "Is there any nation whose people Allah left without sending them a warner?",
+     "options": ["Yes, many nations", "Only the Arabs received messengers", "The messengers were only for the Children of Israel", "No, every nation had a warner"]
+    },
+    {
+     "question": "Is prophethood something a person can attain through effort and worship?",
+     "options": ["Yes, anyone who worships enough attains it", "Yes, through knowledge", "No, Allah chooses the elect and the best for it", "Yes, by inheritance"],
+     "explanation": "He knows best where to place His message and whom to choose for it from His creation, and He chooses for it only the elect and the best."
+    }
+   ],
+   "askTheBook": ["What is the difference between a prophet and a messenger?", "What is the reality of believing in the messengers?", "Did Allah send messengers to all nations?"]
+  }
+ ]
+}

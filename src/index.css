@@ -1,0 +1,94 @@
+@import "tailwindcss";
+
+:root {
+  --radius: 1rem;
+  --background: oklch(0.975 0.018 85);      /* cream */
+  --foreground: oklch(0.28 0.02 86);        /* ink */
+  --card: oklch(0.99 0.01 85);
+  --primary: oklch(0.56 0.105 158);         /* leaf */
+  --primary-deep: oklch(0.45 0.095 158);    /* leaf-deep */
+  --primary-foreground: oklch(0.98 0.015 88);
+  --secondary: oklch(0.93 0.035 84);
+  --muted: oklch(0.93 0.025 84);
+  --muted-foreground: oklch(0.52 0.025 85);
+  --accent: oklch(0.76 0.145 76);           /* saffron */
+  --paper: oklch(0.93 0.035 84);
+  --sky: oklch(0.68 0.08 230);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.28 0.02 86 / 14%);
+  --input: oklch(0.28 0.02 86 / 16%);
+  --ring: oklch(0.56 0.105 158);
+}
+
+@theme inline {
+  --color-cream: var(--background);
+  --color-ink: var(--foreground);
+  --color-card: var(--card);
+  --color-paper: var(--paper);
+  --color-leaf: var(--primary);
+  --color-leaf-deep: var(--primary-deep);
+  --color-saffron: var(--accent);
+  --color-sky: var(--sky);
+  --color-destructive: var(--destructive);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+
+  --radius-sm: calc(var(--radius) - 0.5rem);
+  --radius-md: calc(var(--radius) - 0.25rem);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 0.25rem);
+  --radius-2xl: calc(var(--radius) + 0.5rem);
+  --radius-3xl: calc(var(--radius) + 1rem);
+
+  --font-display: "Amiri", serif;
+  --font-body: "Cairo", system-ui, sans-serif;
+
+  --animate-fade-up: fade-up 500ms ease both;
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+html, body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body);
+}
+
+body { -webkit-font-smoothing: antialiased; }
+
+.font-display { font-family: var(--font-display); }
+.font-display-en { font-family: "Fraunces", Georgia, serif; }
+:lang(en) body, html[lang="en"] { font-family: "Inter", system-ui, sans-serif; }
+
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up { animation: none; }
+  * { scroll-behavior: auto !important; }
+}
+
+/* ── «صفة الصفوة» trees ─────────────────────────────────────────── */
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+@keyframes sheet-in-ltr { from { transform: translateX(100%); } to { transform: none; } }
+@keyframes sheet-in-rtl { from { transform: translateX(-100%); } to { transform: none; } }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+.animate-sheet-in { animation: sheet-in-ltr 420ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+.animate-sheet-out { animation: sheet-in-ltr 220ms ease-in reverse both; }
+[dir="rtl"] .animate-sheet-in { animation-name: sheet-in-rtl; }
+[dir="rtl"] .animate-sheet-out { animation-name: sheet-in-rtl; }
+.animate-fade-in { animation: fade-in 300ms ease both; }
+.animate-fade-out { animation: fade-in 220ms ease reverse both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-sheet-in, .animate-sheet-out, .animate-fade-in, .animate-fade-out { animation: none; }
+}

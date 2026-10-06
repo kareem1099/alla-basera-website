@@ -1,0 +1,6 @@
+node_modules
+dist
+.env
+src/data/journey.generated.json
+screenshots
+tsconfig.tsbuildinfo
