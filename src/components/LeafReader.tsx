@@ -10,6 +10,8 @@ interface Props {
   index: number;
   /** The branch after this one; the last topic of a branch continues into it. */
   nextBranch?: Branch;
+  /** Shown on the last topic of the whole tree. */
+  endLabel: string;
   onIndex: (i: number) => void;
   onBranch: (branch: Branch) => void;
   onClose: () => void;
@@ -62,7 +64,7 @@ function rich(p: string): ReactNode[] {
 }
 
 /** Side sheet that shows one heading of «صفة الصفوة» exactly as the book has it. */
-export default function LeafReader({ branch, branchNo, index, nextBranch, onIndex, onBranch, onClose }: Props) {
+export default function LeafReader({ branch, branchNo, index, nextBranch, endLabel, onIndex, onBranch, onClose }: Props) {
   const { t, lang, num } = useLang();
   const ar = lang === "ar";
   const display = ar ? "font-display" : "font-display-en";
@@ -74,7 +76,7 @@ export default function LeafReader({ branch, branchNo, index, nextBranch, onInde
     ? { label: t.nextTopic, title: ar ? next.ar : next.en, go: () => onIndex(index + 1) }
     : nextBranch
       ? { label: t.nextBranch, title: ar ? nextBranch.ar : nextBranch.en, go: () => onBranch(nextBranch) }
-      : { label: t.treeEnd, title: t.backToTree, go: () => close() };
+      : { label: endLabel, title: t.backToTree, go: () => close() };
   const bodyRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const [size, setSize] = useState(loadSize);

@@ -295,7 +295,7 @@ export default function BookTree({ treeKey, tree }: Props) {
         <StarMedallion className="size-12" shape={pct === 100 ? "fill-leaf stroke-leaf" : "fill-cream stroke-saffron"}>
           {pct === 100 ? <Check className="size-5 text-white" /> : <ChevronLeft className="size-5 rotate-[-90deg] text-saffron" />}
         </StarMedallion>
-        <p className={`mt-3 ${display} text-xl font-bold text-ink/80`}>{pct === 100 ? t.treeDone : t.treeEnd}</p>
+        <p className={`mt-3 ${display} text-xl font-bold text-ink/80`}>{pct === 100 ? t.treeDone : t.treeEnd(treeKey)}</p>
         <p className="mt-1 text-sm text-ink/50">{t.readOf(num(readCount), num(total))}</p>
       </div>
 
@@ -305,6 +305,7 @@ export default function BookTree({ treeKey, tree }: Props) {
           branchNo={tree.branches.indexOf(open.branch) + 1}
           index={open.index}
           nextBranch={tree.branches[tree.branches.indexOf(open.branch) + 1]}
+          endLabel={t.treeEnd(treeKey)}
           onIndex={(index) => openLeaf(open.branch, index)}
           onBranch={(branch) => openLeaf(branch, 0)}
           onClose={() => setOpen(null)}
