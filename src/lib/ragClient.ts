@@ -17,7 +17,7 @@
  *   1. { answer: string, sources?: Array<string | { label|title|name|filepath, type? }> }
  *   2. { response | reply | message | output | result: string }
  *   3. Azure OpenAI chat-completions: { choices: [{ message: { content, context?: { citations: [{ title, filepath }] } } }] }
- *   4. minirag: { answer, grounding: { documents: [{ id, title }] } }
+ *   4. minirag: { answer, grounding } — only the answer is shown; the retrieved documents are not.
  *   5. Plain-text body → used as the answer.
  *
  * To adapt to a different backend, edit only `buildRequestBody` and `normalizeResponse` below.
@@ -101,8 +101,7 @@ export function normalizeResponse(body: unknown): RagAnswer {
   }
 
   const answer = asString(o.answer) ?? asString(o.response) ?? asString(o.reply) ?? asString(o.message) ?? asString(o.output) ?? asString(o.result) ?? "";
-  const grounding = o.grounding as { documents?: unknown } | undefined;
-  const rawSources = Array.isArray(o.sources) ? o.sources : Array.isArray(grounding?.documents) ? grounding.documents : [];
+  const rawSources = Array.isArray(o.sources) ? o.sources : [];
   const sources = rawSources.map(toSource).filter((x): x is Source => !!x);
   return { answer, sources: sources.length ? sources : undefined };
 }
