@@ -202,11 +202,12 @@ export default function BookTree({ treeKey, tree }: Props) {
           const readHere = b.leaves.filter((l) => read.includes(l.id)).length;
           const complete = readHere === b.leaves.length;
           const isIn = seen.has(b.id);
+          // Branches overlap the one above (md:-mt-20), so only the card takes clicks; otherwise the row covers the topics above it.
           return (
             <li
               key={b.id}
               data-branch={b.id}
-              className={`group/branch relative grid py-4 ps-14 md:grid-cols-2 md:ps-0 ${i > 0 ? "md:-mt-20" : ""} transition duration-700 ease-out motion-reduce:transition-none ${
+              className={`group/branch pointer-events-none relative grid py-4 ps-14 md:grid-cols-2 md:ps-0 ${i > 0 ? "md:-mt-20" : ""} transition duration-700 ease-out motion-reduce:transition-none ${
                 isIn ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
               }`}
             >
@@ -230,7 +231,7 @@ export default function BookTree({ treeKey, tree }: Props) {
               />
 
               <section
-                className={`relative isolate overflow-hidden rounded-[1.75rem] bg-card p-5 shadow-[0_1px_0_oklch(0.28_0.02_86/0.04),0_12px_30px_-18px_oklch(0.28_0.02_86/0.25)] ring-1 ring-ink/[0.08] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_50px_-24px_oklch(0.45_0.095_158/0.45)] hover:ring-saffron/40 sm:p-6 ${
+                className={`pointer-events-auto relative isolate overflow-hidden rounded-[1.75rem] bg-card p-5 shadow-[0_1px_0_oklch(0.28_0.02_86/0.04),0_12px_30px_-18px_oklch(0.28_0.02_86/0.25)] ring-1 ring-ink/[0.08] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_50px_-24px_oklch(0.45_0.095_158/0.45)] hover:ring-saffron/40 sm:p-6 ${
                   even ? "md:col-start-1 md:me-12" : "md:col-start-2 md:ms-12"
                 }`}
               >
