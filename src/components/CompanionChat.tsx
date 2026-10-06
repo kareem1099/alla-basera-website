@@ -10,7 +10,7 @@ interface Props {
   sub?: string;
   hello?: string;
   placeholder?: string;
-  /** "page" is the dark card beside a day; "panel" is the light floating chat of the tree pages and fills its box. */
+  /** "page" is the card beside a day; "panel" fills the floating box of the tree pages. */
   variant?: "page" | "panel";
 }
 
@@ -67,40 +67,23 @@ export default function CompanionChat({ context, suggestions = [], sub, hello, p
   };
 
   const panel = variant === "panel";
-  // The journey page keeps its dark card; the tree pages use the page's own cream, leaf and saffron.
-  const c = panel
-    ? {
-        root: "h-full bg-card p-5 text-ink",
-        avatar: "bg-leaf text-white",
-        sub: "text-ink/50",
-        badge: "bg-leaf/10 text-leaf-deep",
-        chip: "bg-cream ring-1 ring-ink/10 hover:ring-saffron/60",
-        hello: "text-ink/60",
-        setup: "text-ink/45",
-        user: "bg-leaf text-white",
-        bot: "bg-paper text-ink",
-        dot: "bg-ink/40",
-        error: "bg-destructive/10 text-ink",
-        retry: "text-leaf-deep",
-        input: "bg-cream text-ink ring-1 ring-ink/10 placeholder:text-ink/40 focus-visible:ring-leaf",
-        send: "bg-leaf text-white",
-      }
-    : {
-        root: "min-h-[620px] rounded-3xl bg-ink p-6 text-cream sm:p-7 lg:sticky lg:top-4",
-        avatar: "bg-saffron text-ink",
-        sub: "text-cream/50",
-        badge: "bg-saffron/15 text-saffron",
-        chip: "bg-cream/10 hover:bg-cream/15",
-        hello: "text-cream/60",
-        setup: "text-cream/45",
-        user: "bg-saffron text-ink",
-        bot: "bg-cream/10",
-        dot: "bg-cream/60",
-        error: "bg-destructive/20",
-        retry: "text-saffron",
-        input: "bg-cream/10 text-cream placeholder:text-cream/40 focus-visible:ring-saffron",
-        send: "bg-saffron text-ink",
-      };
+  // Both chats use the page's own cream, leaf and saffron; only the box differs.
+  const c = {
+    root: panel ? "h-full bg-card p-5 text-ink" : "min-h-[620px] rounded-3xl bg-card p-6 text-ink ring-1 ring-saffron/30 sm:p-7 lg:sticky lg:top-4",
+    avatar: "bg-leaf text-white",
+    sub: "text-ink/50",
+    badge: "bg-leaf/10 text-leaf-deep",
+    chip: "bg-cream ring-1 ring-ink/10 hover:ring-saffron/60",
+    hello: "text-ink/60",
+    setup: "text-ink/45",
+    user: "bg-leaf text-white",
+    bot: "bg-paper text-ink",
+    dot: "bg-ink/40",
+    error: "bg-destructive/10 text-ink",
+    retry: "text-leaf-deep",
+    input: "bg-cream text-ink ring-1 ring-ink/10 placeholder:text-ink/40 focus-visible:ring-leaf",
+    send: "bg-leaf text-white",
+  };
 
   return (
     <aside
@@ -155,10 +138,10 @@ export default function CompanionChat({ context, suggestions = [], sub, hello, p
               {m.sources && m.sources.length > 0 && (
                 <div className="mt-2 flex flex-wrap gap-1.5">
                   {m.sources.map((s, j) => (
-                    <span key={j} className="inline-flex items-center gap-1.5 rounded-full bg-cream/10 px-2.5 py-1 text-xs text-cream/75" title={s.label}>
+                    <span key={j} className="inline-flex items-center gap-1.5 rounded-full bg-paper px-2.5 py-1 text-xs text-ink/75" title={s.label}>
                       <span className={`size-2 rounded-full ${s.type === "book" ? "bg-leaf" : "bg-sky"}`} aria-hidden="true" />
                       <span className="max-w-[18ch] truncate">{s.label}</span>
-                      <span className="text-cream/45">· {s.type === "book" ? t.fromBook : t.external}</span>
+                      <span className="text-ink/45">· {s.type === "book" ? t.fromBook : t.external}</span>
                     </span>
                   ))}
                 </div>
