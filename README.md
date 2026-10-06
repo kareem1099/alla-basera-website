@@ -1,6 +1,6 @@
 # رحلة ما لا يسع المسلم جهله — 90-day reading journey
 
-A static, Arabic/RTL single-page site (React 19 + TypeScript + Vite + Tailwind CSS v4) that turns the book «ما لا يسع المسلم جهله» into a 90-day interactive reading journey, with a "رفيق الكتاب" chat panel that talks to your RAG backend on Azure.
+A static, Arabic/RTL single-page site (React 19 + TypeScript + Vite + Tailwind CSS v4) that turns the book «ما لا يسع المسلم جهله» into a 90-day interactive reading journey, with a "رفيق الرحلة" chat panel that talks to your RAG backend on Azure.
 
 **All content comes from `data/90_day_journey.xlsx`.** No day, unit or quiz text is written in source code.
 

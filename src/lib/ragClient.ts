@@ -53,7 +53,7 @@ const MINIRAG_LIMIT = 5;
 
 export const isRagConfigured = (): boolean => ENDPOINT.length > 0;
 
-export const RAG_ERROR_MESSAGE = "تعذّر الوصول إلى رفيق الكتاب الآن. تأكد من الاتصال ثم حاول مرة أخرى.";
+export const RAG_ERROR_MESSAGE = "تعذّر الوصول إلى رفيق الرحلة الآن. تأكد من الاتصال ثم حاول مرة أخرى.";
 
 export function buildRequestBody(question: string, history: ChatMessage[], context: DayContext, format = FORMAT): unknown {
   if (format === "azure-chat") {

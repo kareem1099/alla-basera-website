@@ -54,7 +54,11 @@ export default function Journey() {
           />
         </div>
         <div className="min-w-0 lg:col-span-5">
-          <CompanionChat key={`${lang}-${day.day}`} day={day} />
+          <CompanionChat
+            key={`${lang}-${day.day}`}
+            context={{ day: day.day, title: day.title, unit: day.unitTitle, lesson: day.lesson.join("\n"), principle: day.principle }}
+            suggestions={day.askTheBook.slice(0, 3)}
+          />
         </div>
       </main>
     </div>

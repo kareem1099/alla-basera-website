@@ -1,19 +1,25 @@
 import { BookOpen, RotateCcw, Send } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import type { Day } from "../data/journey";
 import { useLang } from "../lib/i18n";
-import { askRag, isRagConfigured, type ChatMessage, type Source } from "../lib/ragClient";
+import { askRag, isRagConfigured, type ChatMessage, type DayContext, type Source } from "../lib/ragClient";
 
 interface Props {
-  day: Day;
+  context: DayContext;
+  suggestions?: string[];
+  /** Subtitle, greeting and input placeholder; default to the daily-lesson wording. */
+  sub?: string;
+  hello?: string;
+  placeholder?: string;
+  /** "page" is the tall card beside a day; "panel" fills the column it sits in (the topic reader). */
+  variant?: "page" | "panel";
 }
 
 interface UiMessage extends ChatMessage {
   sources?: Source[];
 }
 
-/** Parent remounts this component with key = day, so the conversation always clears when the day changes. */
-export default function CompanionChat({ day }: Props) {
+/** Parent remounts this component with a key per day/topic, so the conversation clears when it changes. */
+export default function CompanionChat({ context, suggestions = [], sub, hello, placeholder, variant = "page" }: Props) {
   const { t, lang } = useLang();
   const configured = isRagConfigured();
   const [messages, setMessages] = useState<UiMessage[]>([]);
@@ -43,7 +49,7 @@ export default function CompanionChat({ day }: Props) {
       const res = await askRag(
         q,
         history.map(({ role, content }) => ({ role, content })),
-        { day: day.day, title: day.title, unit: day.unitTitle, lesson: day.lesson.join("\n"), principle: day.principle, lang },
+        { ...context, lang },
         abortRef.current.signal,
       );
       setMessages([...nextHistory, { role: "assistant", content: res.answer, sources: res.sources }]);
@@ -60,17 +66,20 @@ export default function CompanionChat({ day }: Props) {
     send(lastQuestion, history);
   };
 
-  const suggestions = day.askTheBook.slice(0, 3);
+  const panel = variant === "panel";
 
   return (
-    <aside className="flex min-h-[620px] flex-col rounded-3xl bg-ink p-6 text-cream sm:p-7 lg:sticky lg:top-4" aria-label={t.chatName}>
+    <aside
+      className={`flex flex-col bg-ink text-cream ${panel ? "h-full min-h-[480px] p-5" : "min-h-[620px] rounded-3xl p-6 sm:p-7 lg:sticky lg:top-4"}`}
+      aria-label={t.chatName}
+    >
       <div className="flex items-center gap-3">
         <div className="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-saffron font-display text-2xl font-bold text-ink" aria-hidden="true">
           م
         </div>
         <div className="min-w-0">
           <h2 className="font-display text-xl font-bold">{t.chatName}</h2>
-          <p className="text-sm text-cream/50">{t.chatSub}</p>
+          <p className="text-sm text-cream/50">{sub ?? t.chatSub}</p>
         </div>
         <span className="ms-auto shrink-0 rounded-full bg-saffron/15 px-3 py-1 text-xs font-bold text-saffron">{configured ? t.connected : t.waiting}</span>
       </div>
@@ -91,11 +100,11 @@ export default function CompanionChat({ day }: Props) {
         </div>
       )}
 
-      <div ref={scrollRef} className="my-5 flex max-h-[440px] min-h-[220px] flex-1 flex-col gap-3 overflow-y-auto pe-1" aria-live="polite">
+      <div ref={scrollRef} className={`my-5 flex min-h-[220px] flex-1 flex-col gap-3 overflow-y-auto pe-1 ${panel ? "" : "max-h-[440px]"}`} aria-live="polite">
         {messages.length === 0 && !loading && !error && (
           <div className="m-auto max-w-[30ch] text-center text-cream/60">
             <BookOpen className="mx-auto mb-3 size-8 text-saffron" aria-hidden="true" />
-            <p className="leading-relaxed">{t.chatHello}</p>
+            <p className="leading-relaxed">{hello ?? t.chatHello}</p>
             {!configured && (
               <p className="mt-3 text-xs leading-relaxed text-cream/45">{t.chatSetup}</p>
             )}
@@ -159,7 +168,7 @@ export default function CompanionChat({ day }: Props) {
           }}
           disabled={!configured || loading}
           rows={1}
-          placeholder={configured ? t.placeholder : t.placeholderOff}
+          placeholder={configured ? (placeholder ?? t.placeholder) : t.placeholderOff}
           aria-label={t.yourQ}
           className="max-h-32 min-h-11 flex-1 resize-none rounded-xl bg-cream/10 px-4 py-2.5 text-cream placeholder:text-cream/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-saffron disabled:cursor-not-allowed disabled:opacity-60"
         />
