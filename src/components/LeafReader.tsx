@@ -8,7 +8,10 @@ interface Props {
   branch: Branch;
   branchNo: number;
   index: number;
+  /** The branch after this one; the last topic of a branch continues into it. */
+  nextBranch?: Branch;
   onIndex: (i: number) => void;
+  onBranch: (branch: Branch) => void;
   onClose: () => void;
 }
 
@@ -59,13 +62,19 @@ function rich(p: string): ReactNode[] {
 }
 
 /** Side sheet that shows one heading of «صفة الصفوة» exactly as the book has it. */
-export default function LeafReader({ branch, branchNo, index, onIndex, onClose }: Props) {
+export default function LeafReader({ branch, branchNo, index, nextBranch, onIndex, onBranch, onClose }: Props) {
   const { t, lang, num } = useLang();
   const ar = lang === "ar";
   const display = ar ? "font-display" : "font-display-en";
   const leaf = branch.leaves[index];
   const next = branch.leaves[index + 1];
   const prev = branch.leaves[index - 1];
+  // Where "next" leads: the next topic, else the next branch's first topic, else back to the tree.
+  const forward = next
+    ? { label: t.nextTopic, title: ar ? next.ar : next.en, go: () => onIndex(index + 1) }
+    : nextBranch
+      ? { label: t.nextBranch, title: ar ? nextBranch.ar : nextBranch.en, go: () => onBranch(nextBranch) }
+      : { label: t.treeEnd, title: t.backToTree, go: () => close() };
   const bodyRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const [size, setSize] = useState(loadSize);
@@ -247,21 +256,19 @@ export default function LeafReader({ branch, branchNo, index, onIndex, onClose }
             <Divider className="mt-10" />
             <p className="mt-3 text-center text-xs text-ink/40">{ar ? safwa.source.ar : safwa.source.en}</p>
 
-            {next && (
-              <button
-                type="button"
-                onClick={() => onIndex(index + 1)}
-                className="group mt-8 flex w-full items-center gap-4 rounded-3xl bg-leaf p-5 text-start text-white shadow-lg shadow-leaf/25 transition hover:-translate-y-0.5 hover:bg-leaf-deep"
-              >
-                <div className="min-w-0 flex-1">
-                  <p className="text-xs font-semibold text-white/65">{t.nextTopic}</p>
-                  <p className={`mt-1 ${display} text-2xl font-bold`}>{ar ? next.ar : next.en}</p>
-                </div>
-                <span className="flex size-11 shrink-0 items-center justify-center rounded-full bg-white/15 transition group-hover:bg-saffron group-hover:text-ink">
-                  <Next className="size-5" aria-hidden="true" />
-                </span>
-              </button>
-            )}
+            <button
+              type="button"
+              onClick={forward.go}
+              className="group mt-8 flex w-full items-center gap-4 rounded-3xl bg-leaf p-5 text-start text-white shadow-lg shadow-leaf/25 transition hover:-translate-y-0.5 hover:bg-leaf-deep"
+            >
+              <div className="min-w-0 flex-1">
+                <p className="text-xs font-semibold text-white/65">{forward.label}</p>
+                <p className={`mt-1 ${display} text-2xl font-bold`}>{forward.title}</p>
+              </div>
+              <span className="flex size-11 shrink-0 items-center justify-center rounded-full bg-white/15 transition group-hover:bg-saffron group-hover:text-ink">
+                <Next className="size-5" aria-hidden="true" />
+              </span>
+            </button>
           </article>
         </div>
 
@@ -282,11 +289,10 @@ export default function LeafReader({ branch, branchNo, index, onIndex, onClose }
           </div>
           <button
             type="button"
-            disabled={!next}
-            onClick={() => onIndex(index + 1)}
+            onClick={forward.go}
             className="ms-auto inline-flex max-w-[45%] items-center gap-1.5 rounded-full bg-leaf px-3.5 py-2 text-sm font-bold text-white transition hover:bg-leaf-deep disabled:opacity-30 sm:ms-0"
           >
-            <span className="truncate">{next ? (ar ? next.ar : next.en) : t.nextTopic}</span>
+            <span className="truncate">{forward.title}</span>
             <Next className="size-4 shrink-0" aria-hidden="true" />
           </button>
         </footer>

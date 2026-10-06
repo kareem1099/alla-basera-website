@@ -303,7 +303,9 @@ export default function BookTree({ treeKey, tree }: Props) {
           branch={open.branch}
           branchNo={tree.branches.indexOf(open.branch) + 1}
           index={open.index}
+          nextBranch={tree.branches[tree.branches.indexOf(open.branch) + 1]}
           onIndex={(index) => openLeaf(open.branch, index)}
+          onBranch={(branch) => openLeaf(branch, 0)}
           onClose={() => setOpen(null)}
         />
       )}

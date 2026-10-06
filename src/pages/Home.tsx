@@ -18,8 +18,8 @@ export default function Home() {
   const { t, num, lang } = useLang();
   const features: Feature[] = [
     { title: t.f1(num(totalDays)), blurb: t.f1b, icon: BookOpenCheck, href: "#/journey", tone: "bg-leaf text-white" },
-    { title: t.f2, subtitle: t.f2s, blurb: t.f2b, icon: Moon, href: "#/prophet", cta: t.explore, tone: "bg-saffron text-ink" },
-    { title: t.f3, subtitle: t.f3s, blurb: t.f3b, icon: Users, href: "#/ten", cta: t.explore, tone: "bg-ink text-cream" },
+    { title: t.f2, subtitle: t.f2s, blurb: t.f2b, icon: Moon, href: "#/prophet", tone: "bg-saffron text-ink" },
+    { title: t.f3, subtitle: t.f3s, blurb: t.f3b, icon: Users, href: "#/ten", tone: "bg-ink text-cream" },
   ];
   const display = lang === "ar" ? "font-display" : "font-display-en";
 
