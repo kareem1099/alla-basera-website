@@ -1,5 +1,6 @@
 import { ArrowLeft, ArrowRight, Moon, Users } from "lucide-react";
 import BookTree from "../components/BookTree";
+import CompanionLauncher from "../components/CompanionLauncher";
 import { Divider, latticeBg } from "../components/Ornament";
 import { safwa, type TreeKey } from "../data/safwa";
 import { LangToggle, useLang } from "../lib/i18n";
@@ -75,6 +76,8 @@ export default function TreePage({ which }: { which: TreeKey }) {
 
         <p className="mt-10 text-center text-xs text-ink/40">{ar ? safwa.source.ar : safwa.source.en}</p>
       </main>
+
+      <CompanionLauncher key={which} context={{ day: 0, title, unit: subtitle, lesson: "", principle: "" }} />
     </div>
   );
 }

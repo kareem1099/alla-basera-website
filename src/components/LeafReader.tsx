@@ -2,7 +2,6 @@ import { ArrowLeft, ArrowRight, BookOpen, Languages, Minus, Plus, X } from "luci
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { safwa, type Branch } from "../data/safwa";
 import { useLang } from "../lib/i18n";
-import CompanionChat from "./CompanionChat";
 import { Divider, StarMedallion, latticeBg } from "./Ornament";
 
 interface Props {
@@ -64,18 +63,6 @@ function rich(p: string): ReactNode[] {
   return out;
 }
 
-const WIDE = "(min-width: 1024px)";
-const useWide = () => {
-  const [wide, setWide] = useState(() => window.matchMedia(WIDE).matches);
-  useEffect(() => {
-    const mq = window.matchMedia(WIDE);
-    const on = () => setWide(mq.matches);
-    mq.addEventListener("change", on);
-    return () => mq.removeEventListener("change", on);
-  }, []);
-  return wide;
-};
-
 /** Side sheet that shows one heading of «صفة الصفوة» exactly as the book has it. */
 export default function LeafReader({ branch, branchNo, index, nextBranch, endLabel, onIndex, onBranch, onClose }: Props) {
   const { t, lang, num } = useLang();
@@ -95,18 +82,6 @@ export default function LeafReader({ branch, branchNo, index, nextBranch, endLab
   const [size, setSize] = useState(loadSize);
   const [progress, setProgress] = useState(0);
   const [closing, setClosing] = useState(false);
-  // The journey companion sits beside the text on wide screens and under it on phones.
-  const wide = useWide();
-  const chat = (
-    <CompanionChat
-      key={`${lang}-${leaf.id}`}
-      variant="panel"
-      context={{ day: 0, title: leaf.ar, unit: branch.ar, lesson: leaf.paras.join("\n"), principle: "" }}
-      sub={t.topicChatSub}
-      hello={t.topicChatHello}
-      placeholder={t.topicPlaceholder}
-    />
-  );
 
   const close = () => {
     setClosing(true);
@@ -164,7 +139,7 @@ export default function LeafReader({ branch, branchNo, index, nextBranch, endLab
         className={`absolute inset-0 cursor-default bg-[oklch(0.22_0.03_160/0.55)] backdrop-blur-[3px] ${closing ? "animate-fade-out" : "animate-fade-in"}`}
       />
       <div
-        className={`relative flex h-full w-full max-w-[46rem] flex-col bg-cream lg:max-w-[78rem] shadow-[0_0_80px_-10px_rgba(0,0,0,0.45)] ${closing ? "animate-sheet-out" : "animate-sheet-in"}`}
+        className={`relative flex h-full w-full max-w-[46rem] flex-col bg-cream shadow-[0_0_80px_-10px_rgba(0,0,0,0.45)] ${closing ? "animate-sheet-out" : "animate-sheet-in"}`}
       >
         {/* reading progress */}
         <div className="absolute inset-x-0 top-0 z-20 h-[3px] bg-transparent" aria-hidden="true">
@@ -226,82 +201,77 @@ export default function LeafReader({ branch, branchNo, index, nextBranch, endLab
           </div>
         </header>
 
-        <div className="flex min-h-0 flex-1">
-          <div ref={bodyRef} onScroll={onScroll} className="relative min-w-0 flex-1 overflow-y-auto">
-            <article key={leaf.id} className="animate-fade-up mx-auto max-w-[40rem] px-5 pt-7 pb-10 sm:px-8">
-              <p className="mb-6 flex items-start gap-2.5 rounded-2xl bg-card px-4 py-3 text-sm text-ink/60 ring-1 ring-saffron/25">
-                <BookOpen className="mt-0.5 size-4 shrink-0 text-saffron" aria-hidden="true" />
-                <span>
-                  <span className="font-semibold text-ink/75">{t.fromSafwa}</span>
-                  <span className="mx-1.5 text-ink/30">·</span>
-                  <span lang="ar" className="font-display text-[15px]">
-                    «{leaf.bookAr}»
-                  </span>
+        <div ref={bodyRef} onScroll={onScroll} className="relative flex-1 overflow-y-auto">
+          <article key={leaf.id} className="animate-fade-up mx-auto max-w-[40rem] px-5 pt-7 pb-10 sm:px-8">
+            <p className="mb-6 flex items-start gap-2.5 rounded-2xl bg-card px-4 py-3 text-sm text-ink/60 ring-1 ring-saffron/25">
+              <BookOpen className="mt-0.5 size-4 shrink-0 text-saffron" aria-hidden="true" />
+              <span>
+                <span className="font-semibold text-ink/75">{t.fromSafwa}</span>
+                <span className="mx-1.5 text-ink/30">·</span>
+                <span lang="ar" className="font-display text-[15px]">
+                  «{leaf.bookAr}»
                 </span>
-              </p>
-              {!ar && leaf.summaryEn.length > 0 && (
-                <section className="mb-8 overflow-hidden rounded-3xl bg-card ring-1 ring-leaf/20" data-summary>
-                  <header className="flex items-center gap-2.5 border-b border-leaf/15 bg-leaf/[0.06] px-5 py-3">
-                    <Languages className="size-4 shrink-0 text-leaf-deep" aria-hidden="true" />
-                    <h3 className="font-display-en text-lg font-bold text-leaf-deep">{t.summaryLabel}</h3>
-                  </header>
-                  <ul className={`flex flex-col gap-3.5 px-5 py-5 leading-relaxed text-ink/85 ${SUMMARY_SIZES[size]}`}>
-                    {leaf.summaryEn.map((s, i) => (
-                      <li key={i} className="flex gap-3">
-                        <span className="mt-[0.6em] size-1.5 shrink-0 rotate-45 bg-saffron" aria-hidden="true" />
-                        <span>{s}</span>
-                      </li>
+              </span>
+            </p>
+            {!ar && leaf.summaryEn.length > 0 && (
+              <section className="mb-8 overflow-hidden rounded-3xl bg-card ring-1 ring-leaf/20" data-summary>
+                <header className="flex items-center gap-2.5 border-b border-leaf/15 bg-leaf/[0.06] px-5 py-3">
+                  <Languages className="size-4 shrink-0 text-leaf-deep" aria-hidden="true" />
+                  <h3 className="font-display-en text-lg font-bold text-leaf-deep">{t.summaryLabel}</h3>
+                </header>
+                <ul className={`flex flex-col gap-3.5 px-5 py-5 leading-relaxed text-ink/85 ${SUMMARY_SIZES[size]}`}>
+                  {leaf.summaryEn.map((s, i) => (
+                    <li key={i} className="flex gap-3">
+                      <span className="mt-[0.6em] size-1.5 shrink-0 rotate-45 bg-saffron" aria-hidden="true" />
+                      <span>{s}</span>
+                    </li>
+                  ))}
+                </ul>
+                <p className="border-t border-ink/[0.06] px-5 py-3 text-xs leading-relaxed text-ink/50">{t.summaryNote}</p>
+              </section>
+            )}
+            {!ar && <h3 className="mb-4 font-display-en text-lg font-bold text-ink/70">{t.originalText}</h3>}
+
+            <div lang="ar" dir="rtl" className={`flex flex-col gap-5 font-display text-ink/90 ${SIZES[size]}`}>
+              {leaf.paras.map((p, i) =>
+                p.includes("\t") ? (
+                  <p key={i} className="relative mx-auto w-full max-w-[34rem] rounded-2xl border-y border-saffron/30 bg-saffron/[0.07] px-5 py-3 text-center text-leaf-deep">
+                    {p.split("\t").map((h, k) => (
+                      <span key={k} className="block sm:inline">
+                        {k > 0 && (
+                          <span className="mx-5 hidden text-saffron sm:inline" aria-hidden="true">
+                            ۞
+                          </span>
+                        )}
+                        {h}
+                      </span>
                     ))}
-                  </ul>
-                  <p className="border-t border-ink/[0.06] px-5 py-3 text-xs leading-relaxed text-ink/50">{t.summaryNote}</p>
-                </section>
+                  </p>
+                ) : (
+                  <p key={i}>
+                    {rich(p)}
+                  </p>
+                ),
               )}
-              {!ar && <h3 className="mb-4 font-display-en text-lg font-bold text-ink/70">{t.originalText}</h3>}
+            </div>
 
-              <div lang="ar" dir="rtl" className={`flex flex-col gap-5 font-display text-ink/90 ${SIZES[size]}`}>
-                {leaf.paras.map((p, i) =>
-                  p.includes("\t") ? (
-                    <p key={i} className="relative mx-auto w-full max-w-[34rem] rounded-2xl border-y border-saffron/30 bg-saffron/[0.07] px-5 py-3 text-center text-leaf-deep">
-                      {p.split("\t").map((h, k) => (
-                        <span key={k} className="block sm:inline">
-                          {k > 0 && (
-                            <span className="mx-5 hidden text-saffron sm:inline" aria-hidden="true">
-                              ۞
-                            </span>
-                          )}
-                          {h}
-                        </span>
-                      ))}
-                    </p>
-                  ) : (
-                    <p key={i}>
-                      {rich(p)}
-                    </p>
-                  ),
-                )}
+            <Divider className="mt-10" />
+            <p className="mt-3 text-center text-xs text-ink/40">{ar ? safwa.source.ar : safwa.source.en}</p>
+
+            <button
+              type="button"
+              onClick={forward.go}
+              className="group mt-8 flex w-full items-center gap-4 rounded-3xl bg-leaf p-5 text-start text-white shadow-lg shadow-leaf/25 transition hover:-translate-y-0.5 hover:bg-leaf-deep"
+            >
+              <div className="min-w-0 flex-1">
+                <p className="text-xs font-semibold text-white/65">{forward.label}</p>
+                <p className={`mt-1 ${display} text-2xl font-bold`}>{forward.title}</p>
               </div>
-
-              <Divider className="mt-10" />
-              <p className="mt-3 text-center text-xs text-ink/40">{ar ? safwa.source.ar : safwa.source.en}</p>
-
-              <button
-                type="button"
-                onClick={forward.go}
-                className="group mt-8 flex w-full items-center gap-4 rounded-3xl bg-leaf p-5 text-start text-white shadow-lg shadow-leaf/25 transition hover:-translate-y-0.5 hover:bg-leaf-deep"
-              >
-                <div className="min-w-0 flex-1">
-                  <p className="text-xs font-semibold text-white/65">{forward.label}</p>
-                  <p className={`mt-1 ${display} text-2xl font-bold`}>{forward.title}</p>
-                </div>
-                <span className="flex size-11 shrink-0 items-center justify-center rounded-full bg-white/15 transition group-hover:bg-saffron group-hover:text-ink">
-                  <Next className="size-5" aria-hidden="true" />
-                </span>
-              </button>
-
-              {!wide && <div className="mt-8 overflow-hidden rounded-3xl">{chat}</div>}
-            </article>
-          </div>
-          {wide && <div className="w-[26rem] shrink-0 border-s border-ink/10">{chat}</div>}
+              <span className="flex size-11 shrink-0 items-center justify-center rounded-full bg-white/15 transition group-hover:bg-saffron group-hover:text-ink">
+                <Next className="size-5" aria-hidden="true" />
+              </span>
+            </button>
+          </article>
         </div>
 
         <footer className="flex items-center gap-2 border-t border-ink/10 bg-card/80 px-5 py-3 backdrop-blur sm:px-8">

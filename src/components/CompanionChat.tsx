@@ -10,7 +10,7 @@ interface Props {
   sub?: string;
   hello?: string;
   placeholder?: string;
-  /** "page" is the tall card beside a day; "panel" fills the column it sits in (the topic reader). */
+  /** "page" is the dark card beside a day; "panel" is the light floating chat of the tree pages and fills its box. */
   variant?: "page" | "panel";
 }
 
@@ -67,21 +67,55 @@ export default function CompanionChat({ context, suggestions = [], sub, hello, p
   };
 
   const panel = variant === "panel";
+  // The journey page keeps its dark card; the tree pages use the page's own cream, leaf and saffron.
+  const c = panel
+    ? {
+        root: "h-full bg-card p-5 text-ink",
+        avatar: "bg-leaf text-white",
+        sub: "text-ink/50",
+        badge: "bg-leaf/10 text-leaf-deep",
+        chip: "bg-cream ring-1 ring-ink/10 hover:ring-saffron/60",
+        hello: "text-ink/60",
+        setup: "text-ink/45",
+        user: "bg-leaf text-white",
+        bot: "bg-paper text-ink",
+        dot: "bg-ink/40",
+        error: "bg-destructive/10 text-ink",
+        retry: "text-leaf-deep",
+        input: "bg-cream text-ink ring-1 ring-ink/10 placeholder:text-ink/40 focus-visible:ring-leaf",
+        send: "bg-leaf text-white",
+      }
+    : {
+        root: "min-h-[620px] rounded-3xl bg-ink p-6 text-cream sm:p-7 lg:sticky lg:top-4",
+        avatar: "bg-saffron text-ink",
+        sub: "text-cream/50",
+        badge: "bg-saffron/15 text-saffron",
+        chip: "bg-cream/10 hover:bg-cream/15",
+        hello: "text-cream/60",
+        setup: "text-cream/45",
+        user: "bg-saffron text-ink",
+        bot: "bg-cream/10",
+        dot: "bg-cream/60",
+        error: "bg-destructive/20",
+        retry: "text-saffron",
+        input: "bg-cream/10 text-cream placeholder:text-cream/40 focus-visible:ring-saffron",
+        send: "bg-saffron text-ink",
+      };
 
   return (
     <aside
-      className={`flex flex-col bg-ink text-cream ${panel ? "h-full min-h-[480px] p-5" : "min-h-[620px] rounded-3xl p-6 sm:p-7 lg:sticky lg:top-4"}`}
+      className={`flex flex-col ${c.root}`}
       aria-label={t.chatName}
     >
       <div className="flex items-center gap-3">
-        <div className="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-saffron font-display text-2xl font-bold text-ink" aria-hidden="true">
+        <div className={`flex size-11 shrink-0 items-center justify-center rounded-2xl font-display text-2xl font-bold ${c.avatar}`} aria-hidden="true">
           م
         </div>
         <div className="min-w-0">
           <h2 className="font-display text-xl font-bold">{t.chatName}</h2>
-          <p className="text-sm text-cream/50">{sub ?? t.chatSub}</p>
+          <p className={`text-sm ${c.sub}`}>{sub ?? t.chatSub}</p>
         </div>
-        <span className="ms-auto shrink-0 rounded-full bg-saffron/15 px-3 py-1 text-xs font-bold text-saffron">{configured ? t.connected : t.waiting}</span>
+        <span className={`ms-auto shrink-0 rounded-full px-3 py-1 text-xs font-bold ${c.badge}`}>{configured ? t.connected : t.waiting}</span>
       </div>
 
       {suggestions.length > 0 && (
@@ -92,7 +126,7 @@ export default function CompanionChat({ context, suggestions = [], sub, hello, p
               type="button"
               disabled={!configured || loading}
               onClick={() => send(s)}
-              className="rounded-full bg-cream/10 px-3 py-1.5 text-start text-sm leading-snug transition-colors hover:bg-cream/15 disabled:cursor-not-allowed disabled:opacity-60"
+              className={`rounded-full px-3 py-1.5 text-start text-sm leading-snug transition disabled:cursor-not-allowed disabled:opacity-60 ${c.chip}`}
             >
               {s}
             </button>
@@ -102,22 +136,22 @@ export default function CompanionChat({ context, suggestions = [], sub, hello, p
 
       <div ref={scrollRef} className={`my-5 flex min-h-[220px] flex-1 flex-col gap-3 overflow-y-auto pe-1 ${panel ? "" : "max-h-[440px]"}`} aria-live="polite">
         {messages.length === 0 && !loading && !error && (
-          <div className="m-auto max-w-[30ch] text-center text-cream/60">
+          <div className={`m-auto max-w-[30ch] text-center ${c.hello}`}>
             <BookOpen className="mx-auto mb-3 size-8 text-saffron" aria-hidden="true" />
             <p className="leading-relaxed">{hello ?? t.chatHello}</p>
             {!configured && (
-              <p className="mt-3 text-xs leading-relaxed text-cream/45">{t.chatSetup}</p>
+              <p className={`mt-3 text-xs leading-relaxed ${c.setup}`}>{t.chatSetup}</p>
             )}
           </div>
         )}
         {messages.map((m, i) =>
           m.role === "user" ? (
-            <div key={i} className="max-w-[85%] self-start rounded-2xl rounded-ss-sm bg-saffron px-4 py-2.5 leading-relaxed whitespace-pre-line text-ink">
+            <div key={i} className={`max-w-[85%] self-start rounded-2xl rounded-ss-sm px-4 py-2.5 leading-relaxed whitespace-pre-line ${c.user}`}>
               {m.content}
             </div>
           ) : (
             <div key={i} className="max-w-[90%] self-end">
-              <div className="rounded-2xl rounded-se-sm bg-cream/10 px-4 py-3 leading-[1.9] whitespace-pre-line">{m.content}</div>
+              <div className={`rounded-2xl rounded-se-sm px-4 py-3 leading-[1.9] whitespace-pre-line ${c.bot}`}>{m.content}</div>
               {m.sources && m.sources.length > 0 && (
                 <div className="mt-2 flex flex-wrap gap-1.5">
                   {m.sources.map((s, j) => (
@@ -133,16 +167,16 @@ export default function CompanionChat({ context, suggestions = [], sub, hello, p
           ),
         )}
         {loading && (
-          <div className="flex items-center gap-1.5 self-end rounded-2xl bg-cream/10 px-4 py-3" aria-label={t.typing}>
+          <div className={`flex items-center gap-1.5 self-end rounded-2xl px-4 py-3 ${c.bot}`} aria-label={t.typing}>
             {[0, 1, 2].map((i) => (
-              <span key={i} className="size-2 animate-bounce rounded-full bg-cream/60" style={{ animationDelay: `${i * 150}ms` }} />
+              <span key={i} className={`size-2 animate-bounce rounded-full ${c.dot}`} style={{ animationDelay: `${i * 150}ms` }} />
             ))}
           </div>
         )}
         {error && (
-          <div className="self-stretch rounded-2xl bg-destructive/20 px-4 py-3 text-sm" role="alert">
+          <div className={`self-stretch rounded-2xl px-4 py-3 text-sm ${c.error}`} role="alert">
             <p>{error}</p>
-            <button type="button" onClick={retry} className="mt-2 inline-flex items-center gap-1.5 font-bold text-saffron hover:underline">
+            <button type="button" onClick={retry} className={`mt-2 inline-flex items-center gap-1.5 font-bold hover:underline ${c.retry}`}>
               <RotateCcw className="size-4" aria-hidden="true" />
               {t.retryChat}
             </button>
@@ -170,13 +204,13 @@ export default function CompanionChat({ context, suggestions = [], sub, hello, p
           rows={1}
           placeholder={configured ? (placeholder ?? t.placeholder) : t.placeholderOff}
           aria-label={t.yourQ}
-          className="max-h-32 min-h-11 flex-1 resize-none rounded-xl bg-cream/10 px-4 py-2.5 text-cream placeholder:text-cream/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-saffron disabled:cursor-not-allowed disabled:opacity-60"
+          className={`max-h-32 min-h-11 flex-1 resize-none rounded-xl px-4 py-2.5 focus:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-60 ${c.input}`}
         />
         <button
           type="submit"
           disabled={!configured || loading || !input.trim()}
           aria-label={t.send}
-          className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-saffron text-ink transition-opacity disabled:cursor-not-allowed disabled:opacity-50"
+          className={`flex size-11 shrink-0 items-center justify-center rounded-xl transition-opacity disabled:cursor-not-allowed disabled:opacity-50 ${c.send}`}
         >
           <Send className="size-5 rtl:-scale-x-100" aria-hidden="true" />
         </button>
